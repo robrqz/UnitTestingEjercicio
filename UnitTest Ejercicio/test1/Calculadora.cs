@@ -8,7 +8,10 @@ namespace UnitTest_Ejercicio1.test1
 {
     public class Calculadora
     {
-        public int Sumar(int a, int b) => a + b;
+        public int Sumar(int a, int b, int c)
+        {
+            return a + b + c;
+        }
 
         public int Dividir(int a, int b)
         {

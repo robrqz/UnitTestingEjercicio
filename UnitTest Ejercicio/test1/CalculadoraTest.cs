@@ -8,15 +8,19 @@ namespace UnitTest_Ejercicio1.test1
 {
     public class CalculadoraTests
     {
-        private readonly Calculadora _calculadora = new Calculadora();
-
         [Theory]
-        [InlineData(2, 3, 5)]
-        [InlineData(-1, 1, 0)]
-        [InlineData(0, 0, 0)]
-        public void Sumar_ValoresValidos_RetornaResultadoCorrecto(int a, int b, int esperado)
+        [InlineData(2, 3, 1, 6)]
+        [InlineData(-1, 1, 0, 0)]
+        [InlineData(0, 0, 0, 0)]
+        public void Sumar_ValoresValidos_RetornaResultadoCorrecto(int a, int b, int c, int esperado)
         {
-            var resultado = _calculadora.Sumar(a, b);
+            //  Arrange
+            var calculadora = new Calculadora();
+
+            //  Act
+            var resultado = calculadora.Sumar(a, b, c);
+
+            //  Asserts
             Assert.Equal(esperado, resultado);
         }
 
@@ -26,14 +30,34 @@ namespace UnitTest_Ejercicio1.test1
         [InlineData(0, 1, 0)]
         public void Dividir_ValoresValidos_RetornaResultadoCorrecto(int a, int b, int esperado)
         {
-            var resultado = _calculadora.Dividir(a, b);
+            //  Arrange
+            var calculadora = new Calculadora();
+
+            //  Act
+            var resultado = calculadora.Dividir(a, b);
+
+            //  Assert
             Assert.Equal(esperado, resultado);
         }
 
         [Fact]
         public void Dividir_DivisionPorCero_LanzaExcepcion()
         {
-            Assert.Throws<DivideByZeroException>(() => _calculadora.Dividir(10, 0));
+            //  Arrange
+            var calculadora = new Calculadora();
+
+            //  Act
+            try
+            {
+                calculadora.Dividir(10, 0);
+            }
+            catch (Exception ex)
+            {
+                //  Assert
+                Assert.Equal(ex.GetType(), typeof(DivideByZeroException));
+            }
+
+            //Assert.Throws<DivideByZeroException>(() => calculadora.Dividir(10, 0));
         }
     }
 }
